@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del DOM
     const navLinks = document.querySelectorAll('.nav-link');
+    const liLinks = document.querySelectorAll('.li-link');
     const sections = document.querySelectorAll('.section');
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navList = document.querySelector('.nav-list');
@@ -48,6 +49,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }, 100);
         });
+    });
+    // Event listeners para navegación
+    liLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href").substring(1);
+          showSection(targetId);
+          // Scroll suave al inicio de la sección
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }, 100);
+        });
+        
     });
 
     // Menú móvil
@@ -231,12 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrolled = window.pageYOffset;
         const header = document.querySelector('.header');
         
-        // Efecto de transparencia en el header
-        if (scrolled > 100) {
-            header.style.background = 'rgba(44, 62, 80, 0.98)';
-        } else {
-            header.style.background = 'rgba(44, 62, 80, 0.95)';
-        }
+        
 
         // Animaciones de entrada para elementos
         const animatedElements = document.querySelectorAll('.character-card, .feature-card, .gallery-item, .chapter-item');
