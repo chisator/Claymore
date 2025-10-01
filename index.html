@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Claymore - Fan Page</title>
     <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-    rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
     />
     <link rel="icon" href="img/icono.ico" type="image/x-icon" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -25,10 +25,16 @@
         <nav class="nav">
           <ul class="nav-list">
             <li><a href="#home" class="nav-link active clay-title">Home</a></li>
-            <li><a href="#personajes" class="nav-link clay-title">Personajes</a></li>
-            <li><a href="#capitulos" class="nav-link clay-title">Capítulos</a></li>
+            <li>
+              <a href="#personajes" class="nav-link clay-title">Personajes</a>
+            </li>
+            <li>
+              <a href="#capitulos" class="nav-link clay-title">Capítulos</a>
+            </li>
             <li><a href="#galeria" class="nav-link clay-title">Galería</a></li>
-            <li><a href="#contacto" class="nav-link clay-title">Contacto</a></li>
+            <li>
+              <a href="#contacto" class="nav-link clay-title">Contacto</a>
+            </li>
           </ul>
         </nav>
         <div class="mobile-menu-toggle">
@@ -103,10 +109,7 @@
           <div class="characters-grid">
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/clare.webp"
-                  alt="Clare"
-                />
+                <img src="img/clare.webp" alt="Clare" />
               </div>
               <div class="character-info">
                 <h3>Clare</h3>
@@ -122,10 +125,7 @@
 
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/Raki.webp"
-                  alt="Raki"
-                />
+                <img src="img/Raki.webp" alt="Raki" />
               </div>
               <div class="character-info">
                 <h3>Raki</h3>
@@ -140,10 +140,7 @@
 
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/teresa.webp"
-                  alt="Teresa"
-                />
+                <img src="img/teresa.webp" alt="Teresa" />
               </div>
               <div class="character-info">
                 <h3>Teresa de la Sonrisa</h3>
@@ -159,10 +156,7 @@
 
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/priscilla.webp"
-                  alt="Priscilla"
-                />
+                <img src="img/priscilla.webp" alt="Priscilla" />
               </div>
               <div class="character-info">
                 <h3>Priscilla</h3>
@@ -177,10 +171,7 @@
 
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/miria.webp"
-                  alt="Miria"
-                />
+                <img src="img/miria.webp" alt="Miria" />
               </div>
               <div class="character-info">
                 <h3>Miria</h3>
@@ -195,10 +186,7 @@
 
             <div class="character-card">
               <div class="character-image">
-                <img
-                  src="img/helen.webp"
-                  alt="Helen"
-                />
+                <img src="img/helen.webp" alt="Helen" />
               </div>
               <div class="character-info">
                 <h3>Helen</h3>
@@ -325,64 +313,76 @@
         <div class="container">
           <h2 class="section-title">Galería de Imágenes</h2>
           <div class="gallery-grid">
-            <div class="gallery-item">
-              <img
-                src="img/art1.webp"
-                alt="Claymore Art 1"
-              />
+            <div
+              class="gallery-item"
+              data-image="img/art1.webp"
+              data-title="Arte Oficial"
+              data-description="Ilustración de Criatura del Abismo"
+            >
+              <img src="img/art1.webp" alt="Claymore Art 1" />
               <div class="gallery-overlay">
-                <h4>Arte Oficial</h4>
-                <p>Ilustración de Clare en batalla</p>
+                <h4>Isley</h4>
+                <p>Ilustración de Criatura del Abismo</p>
               </div>
             </div>
-            <div class="gallery-item">
-              <img
-                src="img/art2.webp"
-                alt="Claymore Art 2"
-              />
+            <div
+              class="gallery-item"
+              data-image="img/art2.webp"
+              data-title="Grupo de Claymores"
+              data-description="Portada Manga"
+            >
+              <img src="img/art2.webp" alt="Claymore Art 2" />
               <div class="gallery-overlay">
-                <h4>Grupo de Claymores</h4>
-                <p>Las guerreras en formación</p>
+                <h4>Ilustración Oficial</h4>
+                <p>Portada Manga</p>
               </div>
             </div>
-            <div class="gallery-item">
-              <img
-                src="img/art3.webp"
-                alt="Claymore Art 3"
-              />
+            <div
+              class="gallery-item"
+              data-image="img/art3.webp"
+              data-title="Yoma"
+              data-description="Las criaturas demoníacas"
+            >
+              <img src="img/art3.webp" alt="Claymore Art 3" />
               <div class="gallery-overlay">
                 <h4>Yoma</h4>
                 <p>Las criaturas demoníacas</p>
               </div>
             </div>
-            <div class="gallery-item">
-              <img
-                src="img/art4.webp"
-                alt="Claymore Art 4"
-              />
+            <div
+              class="gallery-item"
+              data-image="img/art4.webp"
+              data-title="Awakened Being"
+              data-description="Clare y Teresa"
+            >
+              <img src="img/art4.webp" alt="Claymore Art 4" />
+              <div class="gallery-overlay">
+                <h4>Clare y Teresa</h4>
+                <p></p>
+              </div>
+            </div>
+            <div
+              class="gallery-item"
+              data-image="img/art5.webp"
+              data-title="Batalla Épica"
+              data-description="Clare"
+            >
+              <img src="img/art5.webp" alt="Claymore Art 5" />
+              <div class="gallery-overlay">
+                <h4>Claymore</h4>
+                <p>Clare</p>
+              </div>
+            </div>
+            <div
+              class="gallery-item"
+              data-image="img/art6.webp"
+              data-title="Paisaje"
+              data-description="Forma despertada de una Claymore"
+            >
+              <img src="img/art6.webp" alt="Claymore Art 6" />
               <div class="gallery-overlay">
                 <h4>Awakened Being</h4>
                 <p>Forma despertada de una Claymore</p>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img
-                src="img/art5.webp"
-                alt="Claymore Art 5"
-              />
-              <div class="gallery-overlay">
-                <h4>Batalla Épica</h4>
-                <p>Momento de combate intenso</p>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img
-                src="img/art6.webp"
-                alt="Claymore Art 6"
-              />
-              <div class="gallery-overlay">
-                <h4>Paisaje</h4>
-                <p>El mundo de Claymore</p>
               </div>
             </div>
           </div>
@@ -534,6 +534,63 @@
         </div>
       </div>
     </footer>
+
+    <!-- Modal de Galería -->
+    <div id="galleryModal" class="gallery-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle"></h3>
+          <div class="modal-controls">
+            <button id="zoomInBtn" class="control-btn" title="Acercar">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button id="zoomOutBtn" class="control-btn" title="Alejar">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <button
+              id="resetZoomBtn"
+              class="control-btn"
+              title="Restablecer zoom"
+            >
+              <i class="fas fa-expand-arrows-alt"></i>
+            </button>
+            <button
+              id="closeModalBtn"
+              class="control-btn close-btn"
+              title="Cerrar"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <button id="prevBtn" class="nav-btn prev-btn" title="Imagen anterior">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <div class="image-container">
+            <img id="modalImage" src="" alt="" />
+            <div class="zoom-overlay" id="zoomOverlay"></div>
+          </div>
+
+          <button
+            id="nextBtn"
+            class="nav-btn next-btn"
+            title="Imagen siguiente"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <p id="modalDescription"></p>
+          <div class="image-counter">
+            <span id="currentImage">1</span> / <span id="totalImages">6</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

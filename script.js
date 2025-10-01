@@ -273,9 +273,202 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Efectos de hover mejorados para galería
+    // ===== FUNCIONALIDAD DEL MODAL DE GALERÍA =====
+    
+    // Variables del modal
+    let currentImageIndex = 0;
+    let isZoomed = false;
+    let zoomLevel = 1;
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let imageOffset = { x: 0, y: 0 };
+    
+    // Elementos del modal
+    const galleryModal = document.getElementById('galleryModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const currentImageSpan = document.getElementById('currentImage');
+    const totalImagesSpan = document.getElementById('totalImages');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
+    
+    // Obtener todas las imágenes de la galería
     const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach(item => {
+    const galleryImages = Array.from(galleryItems).map(item => ({
+        src: item.dataset.image,
+        title: item.dataset.title,
+        description: item.dataset.description
+    }));
+    
+    // Configurar total de imágenes
+    totalImagesSpan.textContent = galleryImages.length;
+    
+    // Función para abrir el modal
+    function openGalleryModal(index) {
+        currentImageIndex = index;
+        updateModalContent();
+        galleryModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Enfocar el modal para controles de teclado
+        galleryModal.focus();
+    }
+    
+    // Función para cerrar el modal
+    function closeGalleryModal() {
+        galleryModal.classList.remove('active');
+        document.body.style.overflow = '';
+        resetZoom();
+    }
+    
+    // Función para actualizar el contenido del modal
+    function updateModalContent() {
+        const currentImage = galleryImages[currentImageIndex];
+        
+        modalImage.src = currentImage.src;
+        modalImage.alt = currentImage.title;
+        modalTitle.textContent = currentImage.title;
+        modalDescription.textContent = currentImage.description;
+        currentImageSpan.textContent = currentImageIndex + 1;
+        
+        // Agregar efecto de carga
+        modalImage.classList.add('loading');
+        modalImage.onload = () => {
+            modalImage.classList.remove('loading');
+        };
+    }
+    
+    // Función para navegar a la imagen anterior
+    function showPreviousImage() {
+        currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : galleryImages.length - 1;
+        updateModalContent();
+        resetZoom();
+    }
+    
+    // Función para navegar a la imagen siguiente
+    function showNextImage() {
+        currentImageIndex = currentImageIndex < galleryImages.length - 1 ? currentImageIndex + 1 : 0;
+        updateModalContent();
+        resetZoom();
+    }
+    
+    // Funciones de zoom
+    function zoomIn() {
+        zoomLevel = Math.min(zoomLevel * 1.5, 5);
+        applyZoom();
+    }
+    
+    function zoomOut() {
+        zoomLevel = Math.max(zoomLevel / 1.5, 0.5);
+        applyZoom();
+    }
+    
+    function resetZoom() {
+        zoomLevel = 1;
+        imageOffset = { x: 0, y: 0 };
+        applyZoom();
+    }
+    
+    function applyZoom() {
+        modalImage.style.transform = `scale(${zoomLevel}) translate(${imageOffset.x}px, ${imageOffset.y}px)`;
+        modalImage.classList.toggle('zoomed', zoomLevel > 1);
+        isZoomed = zoomLevel > 1;
+        
+        // Mostrar/ocultar indicador de zoom
+        showZoomIndicator();
+    }
+    
+    function showZoomIndicator() {
+        // Crear o actualizar indicador de zoom
+        let indicator = document.querySelector('.zoom-indicator');
+        if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.className = 'zoom-indicator';
+            document.querySelector('.modal-body').appendChild(indicator);
+        }
+        
+        if (isZoomed) {
+            indicator.textContent = `${Math.round(zoomLevel * 100)}%`;
+            indicator.classList.add('show');
+            
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+    }
+    
+    // Funcionalidad de arrastrar imagen cuando está zoomed
+    function handleImageDrag(e) {
+        if (!isZoomed) return;
+        
+        if (e.type === 'mousedown') {
+            isDragging = true;
+            dragStart = { x: e.clientX - imageOffset.x, y: e.clientY - imageOffset.y };
+            modalImage.style.cursor = 'grabbing';
+            e.preventDefault();
+        } else if (e.type === 'mousemove' && isDragging) {
+            imageOffset.x = e.clientX - dragStart.x;
+            imageOffset.y = e.clientY - dragStart.y;
+            applyZoom();
+        } else if (e.type === 'mouseup') {
+            isDragging = false;
+            modalImage.style.cursor = isZoomed ? 'grab' : 'default';
+        }
+    }
+    
+    // Event listeners para el modal
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeGalleryModal);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', showPreviousImage);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', showNextImage);
+    }
+    
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', zoomIn);
+    }
+    
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', zoomOut);
+    }
+    
+    if (resetZoomBtn) {
+        resetZoomBtn.addEventListener('click', resetZoom);
+    }
+    
+    // Event listeners para arrastrar imagen
+    if (modalImage) {
+        modalImage.addEventListener('mousedown', handleImageDrag);
+        document.addEventListener('mousemove', handleImageDrag);
+        document.addEventListener('mouseup', handleImageDrag);
+        
+        // Doble clic para zoom
+        modalImage.addEventListener('dblclick', () => {
+            if (isZoomed) {
+                resetZoom();
+            } else {
+                zoomIn();
+            }
+        });
+    }
+    
+    // Event listeners para la galería
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            openGalleryModal(index);
+        });
+        
+        // Efectos de hover mejorados
         item.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.05) rotate(1deg)';
         });
@@ -283,6 +476,13 @@ document.addEventListener('DOMContentLoaded', function() {
         item.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1) rotate(0deg)';
         });
+    });
+    
+    // Cerrar modal al hacer clic fuera del contenido
+    galleryModal.addEventListener('click', (e) => {
+        if (e.target === galleryModal) {
+            closeGalleryModal();
+        }
     });
 
     // Efectos de hover para personajes
@@ -300,9 +500,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navegación con teclado
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            // Cerrar menú móvil
-            navList.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
+            // Cerrar menú móvil o modal de galería
+            if (galleryModal && galleryModal.classList.contains('active')) {
+                closeGalleryModal();
+            } else {
+                navList.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+            }
+        }
+        
+        // Controles del modal de galería
+        if (galleryModal && galleryModal.classList.contains('active')) {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    showPreviousImage();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    showNextImage();
+                    break;
+                case '+':
+                case '=':
+                    e.preventDefault();
+                    zoomIn();
+                    break;
+                case '-':
+                    e.preventDefault();
+                    zoomOut();
+                    break;
+                case '0':
+                    e.preventDefault();
+                    resetZoom();
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    // Espacio para alternar entre zoom
+                    if (isZoomed) {
+                        resetZoom();
+                    } else {
+                        zoomIn();
+                    }
+                    break;
+            }
         }
     });
 
